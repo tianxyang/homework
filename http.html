@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+  //    无论AJAX还是JSONP等数据交互方式本质都是对表单的模拟。实际上HTTP规定了表单是浏览器对服务器请求数据的唯一方式。
+    // window.onload=function(){
+    //   let oBtn = document.getElementById('btn1');
+    //   oBtn.onclick =function(){
+    //     //创建对象
+    //     let xhr = new XMLHttpRequest();
+    //     alert(xhr.readyState);
+    //     //链接
+    //     xhr.open('GET','1.txt',true);
+    //     alert(xhr.readyState);
+    //     //发送
+    //     xhr.send();
+    //     //接收
+    //     xhr.onreadystatechange=function(){
+    //       if (xhr.readyState==4) {
+    //         if(
+    //           (xhr.status>=200 && xhr.status<300)||xhr.status==304  //处理成功
+    //         ) {
+    //           console.log(xhr);
+    //           alert('success');
+    //           let json = eval('('+xhr.responseText+')');  //使用eval方法将字符串转换为JSON数据格式  使用因为不安全
+    //           alert(json);
+    //         }else{
+    //           alert('failed');
+    //         }
+    //       }
+    //     };
+    //   };
+    // };
+    window.onload = function(){
+      let oBtn = docunment.getElementById('btn1');
+      btn1.onclick=function(){
+        let xhr = new XMLHttpRequest(); //创建对象
+        xhr.open('GET','1.txt',true); //建立连接
+        xhr.send();//发送请求
+        xhr.onreadystatechange = function(){//接收
+          if (xhr.readyState==4) {
+            if (
+              xhr.status>=200&&xhr.status<300||xhr.status==304
+            ) {
+              alert('success');
+              let json=null;
+              try {
+                 json = JOSN.parse(xhr.responseText); //JSON方式将字符串转换为json对象  将json对象转换为字符串使用JSON.stringify(字符串);
+              } catch (e) {
+                json = eval('('+xhr.responseText+')');
+              }
+              alert(json);
+              console.log(json);
+            }else{
+              alert('failed');
+            }
+          }
+        }；
+      }；
+    }；
+  </script>
+</head>
+<body>
+  <input type="button" value="ok" id="btn1">
+</body>
+</html>

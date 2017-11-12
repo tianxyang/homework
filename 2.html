@@ -1,0 +1,86 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js">
+      (async (){
+        alert('欢迎哈');
+        let arr = await $.ajax({url:'a.txt',dataTepy:'json'});
+        alert('accepted '+arr);
+        let json = await $.ajax({url:'b.txt',dataType:'json'});
+        alert('finished');
+        console.log(json);
+      })();
+
+      function *show(){
+        alert('a');
+        yield;
+        alert('b');
+      }
+      let obj = show();
+      obj.next();
+      obj.next();
+
+      function *(){  //不能使用箭头函数
+        alert('a');
+        yield 12;
+        alert('b');
+        return 5;
+      }
+      let obj = show();  show方法返回的是一个封装的promise对象
+      let res1 = obj.next();  //next方法返回值{value: 12  done: false}
+      let res2 = obj.next();  返回的是一个对象  value :5    done : true
+      console.log(res2);
+
+      function* (a,b){
+        alert('a');
+        console.log(a,b);
+        let c =yield;
+        console.log(c);
+        alert('b');
+        return 5;
+      }
+
+      let obj  = show(12,5);
+      let res1 = obj.next();
+      let res2 = obj.next(888);
+
+      runner(function *(){
+        alert('欢迎啊');
+        let arr = yield $.ajax({url:'a.txt',dataType:'json'});
+        alert('accepted'+arr);
+        let json = yield $.ajax({url:'b.txt',dataType:'json'});
+        alert('completed');
+        console.log(json);
+      });
+
+      seajs.use(['mod1.js'],function(mod1){
+        mod1.show(mod1.a,mod1.b);
+      });
+
+      define(function(reqire,exports,module){
+        // exports.num1=12;
+        module.exports={
+          a:12,b:5,
+          show(a,b){
+            alert(a+b);
+          }
+        }
+
+        let moda = require('./a');
+        let modb = require('./b');
+        exports.res = moda.num1+modb.num2;
+      })
+
+      import mod1 from "js/1.js"
+      alert(mod1.a);
+      alert(mod2.b);
+    </script>
+  </head>
+  <body>
+
+  </body>
+  </html>
