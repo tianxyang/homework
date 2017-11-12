@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <title>Document</title>
+  <!-- <script src="jquery.js" charset="utf-8"> -->
+
+  </script> -->
+  <script>
+    // let arr =[12,5,7,34,25];
+    // let arr2 = arr.filter(item=>item%2);
+    // alert(arr2);
+    // let arr3 = arr.map((item)=>item*2);
+    // alert(arr3);
+    // arr.forEach((item,index)=>{
+    //   alert(`第${index+1}个是${item}`);
+    // });
+    // let result = arr.reduce((tmp,item,index)=>{
+    //   if(index<arr.length-1){
+    //     return tmp+item
+    //   }else{
+    //     return (tmp+item)/arr.length;
+    //   }
+    // });
+    // alert(result);
+    // class User{
+    //   constructor(name,age){
+    //     this.name=name;
+    //     this.age=age;
+    //   }
+    //   say(){
+    //     alert('yes');
+    //   }
+    // }
+    // class VipUser extends User {
+    //   constructor(name,age,sex) {
+    //     super(name,age);
+    //     this.sex=sex;
+    //   }
+    //   show(){
+    //     alert('hello');
+    //   }
+    // }
+    // let u = new User('Jack','20');
+    // u.say();
+    // let u2 =new VipUser('Lucy','11','woman');
+    // u2.show();
+    // alert(u2 instanceof User);
+  //  ----------------------------------------------------------------
+    // let p1= new Promise(function(resolve,reject){
+    //   $.ajax({
+    //     url:'1.txt',
+    //     dataType:'json'
+    //     success(arr){
+    //       resolve(arr);
+    //     },
+    //     error(err){
+    //       reject(err);
+    //     }
+    //   });
+    // });
+    // let p2= new Promise(function(resolve,reject){
+    //   $.ajax({
+    //     url:'2.txt',
+    //     dataType:'json'
+    //     success(arr){
+    //       resolve(arr);
+    //     },
+    //     error(err){
+    //       reject(err);
+    //     }
+    //   });
+    // });
+    // let p3= new Promise(function(resolve,reject){
+    //   $.ajax({
+    //     url:'3.txt',
+    //     dataType:'json'
+    //     success(arr){
+    //       resolve(arr);
+    //     },
+    //     error(err){
+    //       reject(err);
+    //     }
+    //   });
+    // });
+    // Promise.all[p1,p2,p3].then(arr=>{
+    //   let [a1,a2,a3] = arr;
+    //   alert(a1);
+    //   alert(a2);
+    //   alert(a3);
+    // },err=>{
+    //   alert('wrong');
+    // });
+  //  ---------------------------------------------------------
+    // Promise.all[
+    //   $.ajax({url:'1.txt',dataType:'json'}),
+    //   $.ajax({url:'2.txt',dataType:'json'}),
+    //   $.ajax({url:'3.txt',dataType:'json'})
+    // ].then(arr=>{
+    //   let [q,json,e] = arr;
+    //   alert(q);
+    //   alert(json);
+    // },err=>{
+    //   alet('wrong');
+    // });
+    // function show(a,b,...arg){
+    //   alert(arg);
+    // }
+    // show(1,2,3,4,5,5,6,6,7);
+
+    // let arr1=[1,2,3];
+    // let sum =(a,b,c)=> a+b+c;
+    //
+    // alert(...arr1);
+    // alert(sum(...arr1));//展开数组
+    // let arr2=[4,5,6];
+    // let arr3 = [...arr1,...arr2];
+    // alert(arr3);
+    // let arr = [12,2,46,45,7,4,6,73,11];
+    // let res = arr.sort((a,b)=>a-b);
+    // console.log(res);
+
+    // window.onload = function(){
+    //   let aBtn= document.getElementsByTagName('input');
+    //   for(let i=0;i<aBtn.length;i++){
+    //     aBtn[i].onclick=function(){
+    //       alert(i);
+    //     }
+    //   }
+    // }
+    // let str = `abc  ff
+    // dd`;
+    // alert(str);
+
+     let [a,b,c] = [{"name":"jack"},{"age":"12"},{"sex":"woman"}];
+     let c = JOSN.stringify(a);
+     alert(c);
+    // alert(c);
+    // alert(b);
+    // JSON.stringify(obj)       将JSON对象转为字符串。
+    // JSON.parse(string)       将字符串转为JSON对象格式。
+  </script>
+</head>
+<body>
+  <input type="button" value="a">
+  <input type="button" value="b">
+  <input type="button" value="c">
+</body>
+</html>
