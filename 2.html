@@ -1,86 +1,88 @@
-  <!DOCTYPE html>
-  <html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="jquery.js">
-      (async (){
-        alert('欢迎哈');
-        let arr = await $.ajax({url:'a.txt',dataTepy:'json'});
-        alert('accepted '+arr);
-        let json = await $.ajax({url:'b.txt',dataType:'json'});
-        alert('finished');
-        console.log(json);
-      })();
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://localhost:8080/socket.io/socket.io.js" charset="utf-8"></script>
+    <style media="screen">
+    .mine {background:green}
+    </style>
+    <script>
+    let sock=io.connect('ws://localhost:8080/');
 
-      function *show(){
-        alert('a');
-        yield;
-        alert('b');
-      }
-      let obj = show();
-      obj.next();
-      obj.next();
+    window.onload=function (){
+      let cur_username='';
+      let oBtn1=document.getElementById('btn1');
+      let oBtn2=document.getElementById('btn2');
+      let oBtnSend=document.getElementById('btn_send');
+      let oUl=document.getElementById('ul1');
+      let oUser=document.getElementById('user');
+      let oPass=document.getElementById('pass');
+      let oTxt=document.getElementById('txt1');
 
-      function *(){  //不能使用箭头函数
-        alert('a');
-        yield 12;
-        alert('b');
-        return 5;
-      }
-      let obj = show();  show方法返回的是一个封装的promise对象
-      let res1 = obj.next();  //next方法返回值{value: 12  done: false}
-      let res2 = obj.next();  返回的是一个对象  value :5    done : true
-      console.log(res2);
-
-      function* (a,b){
-        alert('a');
-        console.log(a,b);
-        let c =yield;
-        console.log(c);
-        alert('b');
-        return 5;
-      }
-
-      let obj  = show(12,5);
-      let res1 = obj.next();
-      let res2 = obj.next(888);
-
-      runner(function *(){
-        alert('欢迎啊');
-        let arr = yield $.ajax({url:'a.txt',dataType:'json'});
-        alert('accepted'+arr);
-        let json = yield $.ajax({url:'b.txt',dataType:'json'});
-        alert('completed');
-        console.log(json);
-      });
-
-      seajs.use(['mod1.js'],function(mod1){
-        mod1.show(mod1.a,mod1.b);
-      });
-
-      define(function(reqire,exports,module){
-        // exports.num1=12;
-        module.exports={
-          a:12,b:5,
-          show(a,b){
-            alert(a+b);
-          }
+      //注册
+      sock.on('reg_ret', (code, msg)=>{
+        if(code){
+          alert('注册失败，'+msg);
+        }else{
+          alert('注册成功');
         }
+      });
+      oBtn1.onclick=function (){
+        sock.emit('reg', oUser.value, oPass.value);
+      };
 
-        let moda = require('./a');
-        let modb = require('./b');
-        exports.res = moda.num1+modb.num2;
-      })
+      //登陆
+      sock.on('login_ret', (code, msg)=>{
+        if(code){
+          alert('登陆有错，'+msg);
+        }else{
+          alert('登陆成功');
+          cur_username=oUser.value;
+        }
+      });
+      oBtn2.onclick=function (){
+        sock.emit('login', oUser.value, oPass.value);
+      };
 
-      import mod1 from "js/1.js"
-      alert(mod1.a);
-      alert(mod2.b);
+      //消息
+      sock.on('msg_ret', (code, msg)=>{
+        if(code){
+          alert('消息发送失败，'+msg);
+        }else{
+          let oLi=document.createElement('li');
+          oLi.className='mine';
+
+          oLi.innerHTML=`<h4>${cur_username}</h4><p>${oTxt.value}</p>`;
+          oUl.appendChild(oLi);
+
+          oTxt.value='';
+        }
+      });
+      sock.on('msg', (name, txt)=>{
+        let oLi=document.createElement('li');
+        oLi.innerHTML=`<h4>${name}</h4><p>${txt}</p>`;
+        oUl.appendChild(oLi);
+      });
+      oBtnSend.onclick=function (){
+        sock.emit('msg', oTxt.value);
+      };
+    };
     </script>
   </head>
   <body>
-
+    用户：<input type="text" id="user" /><br>
+    密码：<input type="password" id="pass" /><br>
+    <input type="button" value="注册" id="btn1">
+    <input type="button" value="登陆" id="btn2">
+    <hr>
+    <textarea id="txt1" rows="4" cols="80"></textarea>
+    <input type="button" value="发送" id="btn_send"><br>
+    <ul id="ul1">
+      <!--<li>
+        <h4>张三</h4>
+        <p>dfsdgwrt 的个人个人头也如何与体育人头</p>
+      </li>-->
+    </ul>
   </body>
-  </html>
+</html>
